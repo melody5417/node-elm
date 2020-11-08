@@ -1,14 +1,16 @@
 'use strict';
 
-import AdminModel from '../../models/admin/admin'
-import AddressComponent from '../../prototype/addressComponent'
-import crypto from 'crypto'
-import formidable from 'formidable'
-import dtime from 'time-formater'
+import crypto from 'crypto';
+import formidable from 'formidable';
+import dtime from 'time-formater';
+import AdminModel from '../../models/admin/admin';
+import AddressComponent from '../../prototype/addressComponent';
 
 class Admin extends AddressComponent {
 	constructor(){
 		super()
+		// why bind? https://medium.com/@5066aman/why-we-need-to-bind-method-inside-our-components-constructor-3d9199c399ef
+		// 当我们在类中使用箭头函数(使用属性初始值设定项特性)时，它成为实例的方法属性。由于这总是由外部范围决定的，因此它将指向类的实例。
 		this.login = this.login.bind(this)
 		this.register = this.register.bind(this)
 		this.encryption = this.encryption.bind(this)

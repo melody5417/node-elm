@@ -1,13 +1,14 @@
 'use strict';
 
 import mongoose from 'mongoose';
-import cityData from '../../InitData/cities'
+import cityData from '../../InitData/cities';
 
 const citySchema = new mongoose.Schema({
 	data: {}
 });
 
 citySchema.statics.cityGuess = function(name){
+	console.log('cityGuess', name)
 	return new Promise(async (resolve, reject) => {
 		const firtWord = name.substr(0,1).toUpperCase();
 		try{
@@ -32,6 +33,7 @@ citySchema.statics.cityGuess = function(name){
 }
 
 citySchema.statics.cityHot = function (){
+	console.log('cityHot')
 	return new Promise(async (resolve, reject) => {
 		try{
 			const city = await this.findOne();
@@ -88,7 +90,6 @@ citySchema.statics.getCityById = function(id){
 }
 
 const Cities = mongoose.model('Cities', citySchema);
-
 
 Cities.findOne((err, data) => {
 	if (!data) {

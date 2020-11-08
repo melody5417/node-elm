@@ -1,11 +1,11 @@
 'use strict';
 
-import AddressComponent from '../../prototype/addressComponent'
-import formidable from 'formidable'
-import UserInfoModel from '../../models/v2/userInfo'
-import UserModel from '../../models/v2/user'
-import crypto from 'crypto'
-import dtime from 'time-formater'
+import crypto from 'crypto';
+import formidable from 'formidable';
+import dtime from 'time-formater';
+import UserModel from '../../models/v2/user';
+import UserInfoModel from '../../models/v2/userInfo';
+import AddressComponent from '../../prototype/addressComponent';
 
 class User extends AddressComponent {
 	constructor(){
@@ -16,6 +16,7 @@ class User extends AddressComponent {
 		this.updateAvatar = this.updateAvatar.bind(this);
 	}
 	async login(req, res, next){
+		console.log('login')
 		const cap = req.cookies.cap;
 		if (!cap) {
 			console.log('验证码失效')
@@ -141,6 +142,7 @@ class User extends AddressComponent {
 		}
 	}
 	async signout(req, res, next){
+		console.log('signout')
 		delete req.session.user_id;
 		res.send({
 			status: 1,

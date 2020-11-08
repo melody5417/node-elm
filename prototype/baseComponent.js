@@ -1,10 +1,10 @@
+import formidable from 'formidable';
+import fs from 'fs';
+import gm from 'gm';
 import fetch from 'node-fetch';
-import Ids from '../models/ids'
-import formidable from 'formidable'
-import path from 'path'
-import fs from 'fs'
-import qiniu from 'qiniu'
-import gm from 'gm'
+import path from 'path';
+import qiniu from 'qiniu';
+import Ids from '../models/ids';
 qiniu.conf.ACCESS_KEY = 'Ep714TDrVhrhZzV2VJJxDYgGHBAX-KmU1xV1SQdS';
 qiniu.conf.SECRET_KEY = 'XNIW2dNffPBdaAhvm9dadBlJ-H6yyCTIJLxNM_N6';
 
@@ -13,6 +13,9 @@ export default class BaseComponent {
 	constructor(){
 		this.idList = ['restaurant_id', 'food_id', 'order_id', 'user_id', 'address_id', 'cart_id', 'img_id', 'category_id', 'item_id', 'sku_id', 'admin_id', 'statis_id'];
 		this.imgTypeList = ['shop', 'food', 'avatar','default'];
+		// bind() 方法创建一个新的函数，
+		// 在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，
+		// 而其余参数将作为新函数的参数，供调用时使用。
 		this.uploadImg = this.uploadImg.bind(this)
 		this.qiniu = this.qiniu.bind(this)
 	}
@@ -105,6 +108,8 @@ export default class BaseComponent {
 					img_id = await this.getId('img_id');
 				}catch(err){
 					console.log('获取图片id失败');
+					// fs.unlinkSync 同步删除文件
+					// 上传文件，未关联业务，需要及时清理
 					fs.unlinkSync(files.file.path);
 					reject('获取图片id失败');
 				}
